@@ -5,7 +5,9 @@
 # (and print out the current wind direction (10m) as well.)
 
 # Importing packages
+from xml.dom.minidom import parseString
 import requests
+import csv
 
 # Setting URL
 url = "https://api.open-meteo.com/v1/forecast?latitude=53.82&longitude=-9.5&current=temperature_2m,wind_speed_10m"
@@ -16,11 +18,11 @@ response = requests.get(url)
 # Assigning new variable called data
 data = response.json()
 
-# Assigning variable bpi
-v1 = data["v1"]
-
 # Assigning variable temperature
-temperature = v1["temperature_2m"]
+temperature = data["temperature_2m"]
+
+windSpeed = data["wind_speed_10m"]
 
 #Print
-print(temperature)
+print(f"temperature is: ", temperature)
+print(f"wind direction is: ", windSpeed)
