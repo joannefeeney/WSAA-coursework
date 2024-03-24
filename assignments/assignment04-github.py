@@ -4,12 +4,9 @@
 # The program should then replace all the instances of the text "Andrew" with your name. 
 # The program should then commit those changes and push the file back to the repository.
 
-pip install PyGithub
-
-from github import Github 
 from config import config as cfg 
 
-apikey = ht6Vnk["githubkey"] 
+apikey = cfg["githubkey"] 
 # use your own key 
 g = Github(apikey) 
 
