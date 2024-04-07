@@ -9,20 +9,26 @@ from xml.dom.minidom import parseString
 import requests
 import csv
 
-# Setting URL
-url = "https://api.open-meteo.com/v1/forecast?latitude=53.82&longitude=-9.5&current=temperature_2m,wind_speed_10m"
+# Setting URL & defining function
+def current_weather():
+    url = "https://api.open-meteo.com/v1/forecast?latitude=53.82&longitude=-9.5&current=temperature_2m,wind_speed_10m"
+# Adding request for URL
+# https://www.w3schools.com/python/python_try_except.asp
+    try:
+        response = requests.get(url)
+        # Assigning new variable called data
+        data = response.json()
+        
+        if "temperature_2m" in data["current"] and 'wind_speed_10m' in data["current"]:
+        # "current" is defined in the api
+            temperature = data["current"]["temperature_2m"]
+            wind_speed = data["current"]["wind_speed_10m"]
+            print(f"Current Temperature: {temperature}°C")
+            print(f"Current Wind Speed (10m): {wind_speed} m/s")
+    # Adding except (will not work if I don't)
+    except:
+        print(f"Error")
 
-# Adding request for URL as per lecture notes
-response = requests.get(url)
-
-# Assigning new variable called data
-data = response.json()
-
-# Assigning variable temperature
-temperature = data["temperature_2m"]
-
-windSpeed = data["wind_speed_10m"]
-
-#Print
-print(f"temperature is: ", temperature)
-print(f"wind direction is: ", windSpeed)
+# Check if script being run as main 
+if __name__ == "__main__":
+    current_weather()
